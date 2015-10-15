@@ -1,0 +1,1 @@
+include ':com.clientsbox.ipos.app', ':com.clientsbox.ipos.repository', ':com.clientsbox.ipos.logic', ':com.clientsbox.ipos.transfer.object'

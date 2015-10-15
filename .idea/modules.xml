@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/com.clientsbox.ipos.app/com.clientsbox.ipos.app.iml" filepath="$PROJECT_DIR$/com.clientsbox.ipos.app/com.clientsbox.ipos.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.clientsbox.ipos.logic/com.clientsbox.ipos.logic.iml" filepath="$PROJECT_DIR$/com.clientsbox.ipos.logic/com.clientsbox.ipos.logic.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.clientsbox.ipos.repository/com.clientsbox.ipos.repository.iml" filepath="$PROJECT_DIR$/com.clientsbox.ipos.repository/com.clientsbox.ipos.repository.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.clientsbox.ipos.transfer.object/com.clientsbox.ipos.transfer.object.iml" filepath="$PROJECT_DIR$/com.clientsbox.ipos.transfer.object/com.clientsbox.ipos.transfer.object.iml" />
+      <module fileurl="file://$PROJECT_DIR$/iPOS.iml" filepath="$PROJECT_DIR$/iPOS.iml" />
+    </modules>
+  </component>
+</project>
