@@ -2,12 +2,13 @@ package com.clientsbox.ipos.core;
 
 import android.app.Application;
 
-import com.clientsbox.comclientsboxiposrepository.IInventoryRepository;
-import com.clientsbox.comclientsboxiposrepository.InventoryRepository;
+
 import com.clientsbox.ipos.MainActivity;
 import com.clientsbox.ipos.MainApplication;
 import com.clientsbox.ipos.logic.IInventoryLogic;
 import com.clientsbox.ipos.logic.InventoryLogic;
+import com.clientsbox.ipos.repository.IInventoryRepository;
+import com.clientsbox.ipos.repository.InventoryRepository;
 
 import javax.inject.Inject;
 

@@ -1,6 +1,7 @@
 package com.clientsbox.ipos.logic;
 
-import com.clientsbox.comclientsboxiposrepository.IInventoryRepository;
+
+import com.clientsbox.ipos.repository.IInventoryRepository;
 import com.clientsbox.ipos.transfer.object.InventoryCategory;
 import com.clientsbox.ipos.transfer.object.InventoryItem;
 import com.clientsbox.ipos.transfer.object.InventoryMenu;
