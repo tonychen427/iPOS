@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/com.clientsbox.ipos.logic" />
             <option value="$PROJECT_DIR$/com.clientsbox.ipos.repository" />
             <option value="$PROJECT_DIR$/com.clientsbox.ipos.transfer.object" />
+            <option value="$PROJECT_DIR$/com.clientsbox.ipos.widgets.pageslidingtabstrip" />
           </set>
         </option>
       </GradleProjectSettings>

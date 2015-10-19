@@ -30,4 +30,5 @@ dependencies {
     provided 'org.glassfish:javax.annotation:10.0-b28'
     compile project(':com.clientsbox.ipos.logic')
     compile project(':com.clientsbox.ipos.transfer.object')
+    compile project(':com.clientsbox.ipos.widgets.pageslidingtabstrip')
 }

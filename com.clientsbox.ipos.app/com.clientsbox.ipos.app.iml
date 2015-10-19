@@ -99,5 +99,6 @@
     <orderEntry type="library" exported="" name="support-annotations-23.0.1" level="project" />
     <orderEntry type="module" module-name="com.clientsbox.ipos.transfer.object" exported="" />
     <orderEntry type="module" module-name="com.clientsbox.ipos.logic" exported="" />
+    <orderEntry type="module" module-name="com.clientsbox.ipos.widgets.pageslidingtabstrip" exported="" />
   </component>
 </module>

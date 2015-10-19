@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/com.clientsbox.ipos.logic/com.clientsbox.ipos.logic.iml" filepath="$PROJECT_DIR$/com.clientsbox.ipos.logic/com.clientsbox.ipos.logic.iml" />
       <module fileurl="file://$PROJECT_DIR$/com.clientsbox.ipos.repository/com.clientsbox.ipos.repository.iml" filepath="$PROJECT_DIR$/com.clientsbox.ipos.repository/com.clientsbox.ipos.repository.iml" />
       <module fileurl="file://$PROJECT_DIR$/com.clientsbox.ipos.transfer.object/com.clientsbox.ipos.transfer.object.iml" filepath="$PROJECT_DIR$/com.clientsbox.ipos.transfer.object/com.clientsbox.ipos.transfer.object.iml" />
+      <module fileurl="file://$PROJECT_DIR$/com.clientsbox.ipos.widgets.pageslidingtabstrip/com.clientsbox.ipos.widgets.pageslidingtabstrip.iml" filepath="$PROJECT_DIR$/com.clientsbox.ipos.widgets.pageslidingtabstrip/com.clientsbox.ipos.widgets.pageslidingtabstrip.iml" />
       <module fileurl="file://$PROJECT_DIR$/iPOS.iml" filepath="$PROJECT_DIR$/iPOS.iml" />
     </modules>
   </component>
