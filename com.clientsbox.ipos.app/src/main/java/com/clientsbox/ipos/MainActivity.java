@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
     @InjectView(R.id.Shoppingcart_listView)
     ListView shoppingcart_listView;
+
     ShoppingCartAdapter mShoppingCartAdapter;
 
     private MenuPageAdapter adapter;
@@ -65,37 +66,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.inject(this);
         MainApplication.getComponent(this).inject(this);
-
         InventoryMenu mInvMenu = _inventoryLogic.getAllMenuByStoreId(1000);
 
         tabs.setBackgroundColor(getResources().getColor(R.color.green));
         toolbar.setBackgroundColor(getResources().getColor(R.color.green));
         setSupportActionBar(toolbar);
 
-
         mTintManager = new SystemBarTintManager(this);
-        // enable status bar tint
         mTintManager.setStatusBarTintEnabled(true);
 
-
-        List<InventoryItem> mInventoryItemHamburger = new ArrayList<>();
-        mInventoryItemHamburger.add(new InventoryItem(001, "Hamburger 01", "number 1","Beef","5","img001.png",1.99, true));
-        mInventoryItemHamburger.add(new InventoryItem(002, "Hamburger 02", "number 2","Beef","5","img001.png",2.99, true));
-        mInventoryItemHamburger.add(new InventoryItem(003, "Hamburger 03", "number 3","Beef","5","img001.png",3.99, true));
-        mInventoryItemHamburger.add(new InventoryItem(004, "Hamburger 04", "number 4","Beef","5","img001.png",4.99, true));
-        mInventoryItemHamburger.add(new InventoryItem(005, "Hamburger 05", "number 5", "Beef", "5", "img001.png", 5.99, true));
-
-        List<InventoryItem> mInventoryItemDrink = new ArrayList<>();
-        mInventoryItemDrink.add(new InventoryItem(001, "Cola", "number 1","Beef","5","img001.png",0.75, true));
-        mInventoryItemDrink.add(new InventoryItem(002, "Root Beer", "number 2","Beef","5","img001.png",0.85, true));
-        mInventoryItemDrink.add(new InventoryItem(003, "Pipse", "number 3","Beef","5","img001.png",0.99, true));
-
-
-        List<InventoryCategory> mInventoryCategory = new ArrayList<>();
-        mInventoryCategory.add(new InventoryCategory(010,"Hamburger","Main Dishes", mInventoryItemHamburger));
-        mInventoryCategory.add(new InventoryCategory(010,"Drink","Soft Drinks", mInventoryItemDrink));
-
-        adapter = new MenuPageAdapter(getSupportFragmentManager(), mInventoryCategory);
+        adapter = new MenuPageAdapter(getSupportFragmentManager(), mInvMenu.getCategoryList());
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
@@ -111,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         List<ShoppingCart> mList = new ArrayList<>();
-        mList.add(new ShoppingCart("1","Food 001", "Food Desc", 1, 1.25));
-        mList.add(new ShoppingCart("1","Food 002", "Food Desc", 1, 2.25));
 
         mShoppingCartAdapter = new ShoppingCartAdapter(this, mList);
         shoppingcart_listView.setAdapter(mShoppingCartAdapter);
