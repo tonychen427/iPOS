@@ -16,12 +16,22 @@ import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Toast;
 
+import com.clientsbox.ipos.adapter.ShoppingCartAdapter;
+import com.clientsbox.ipos.fragmentPageAdapter.MenuPageAdapter;
 import com.clientsbox.ipos.logic.IInventoryLogic;
+import com.clientsbox.ipos.transfer.object.InventoryCategory;
+import com.clientsbox.ipos.transfer.object.InventoryItem;
 import com.clientsbox.ipos.transfer.object.InventoryMenu;
+import com.clientsbox.ipos.transfer.object.ShoppingCart;
 import com.clientsbox.ipos.widgets.pageslidingtabstrip.PagerSlidingTabStrip;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,8 +49,11 @@ public class MainActivity extends AppCompatActivity {
     PagerSlidingTabStrip tabs;
     @InjectView(R.id.pager)
     ViewPager pager;
+    @InjectView(R.id.Shoppingcart_listView)
+    ListView shoppingcart_listView;
+    ShoppingCartAdapter mShoppingCartAdapter;
 
-    private MyPagerAdapter adapter;
+    private MenuPageAdapter adapter;
     private Drawable oldBackground = null;
     private int currentColor;
     private SystemBarTintManager mTintManager;
@@ -63,13 +76,31 @@ public class MainActivity extends AppCompatActivity {
         mTintManager = new SystemBarTintManager(this);
         // enable status bar tint
         mTintManager.setStatusBarTintEnabled(true);
-        adapter = new MyPagerAdapter(getSupportFragmentManager());
+
+
+        List<InventoryItem> mInventoryItemHamburger = new ArrayList<>();
+        mInventoryItemHamburger.add(new InventoryItem(001, "Hamburger 01", "number 1","Beef","5","img001.png",1.99, true));
+        mInventoryItemHamburger.add(new InventoryItem(002, "Hamburger 02", "number 2","Beef","5","img001.png",2.99, true));
+        mInventoryItemHamburger.add(new InventoryItem(003, "Hamburger 03", "number 3","Beef","5","img001.png",3.99, true));
+        mInventoryItemHamburger.add(new InventoryItem(004, "Hamburger 04", "number 4","Beef","5","img001.png",4.99, true));
+        mInventoryItemHamburger.add(new InventoryItem(005, "Hamburger 05", "number 5", "Beef", "5", "img001.png", 5.99, true));
+
+        List<InventoryItem> mInventoryItemDrink = new ArrayList<>();
+        mInventoryItemDrink.add(new InventoryItem(001, "Cola", "number 1","Beef","5","img001.png",0.75, true));
+        mInventoryItemDrink.add(new InventoryItem(002, "Root Beer", "number 2","Beef","5","img001.png",0.85, true));
+        mInventoryItemDrink.add(new InventoryItem(003, "Pipse", "number 3","Beef","5","img001.png",0.99, true));
+
+
+        List<InventoryCategory> mInventoryCategory = new ArrayList<>();
+        mInventoryCategory.add(new InventoryCategory(010,"Hamburger","Main Dishes", mInventoryItemHamburger));
+        mInventoryCategory.add(new InventoryCategory(010,"Drink","Soft Drinks", mInventoryItemDrink));
+
+        adapter = new MenuPageAdapter(getSupportFragmentManager(), mInventoryCategory);
         pager.setAdapter(adapter);
         tabs.setViewPager(pager);
-        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
-                .getDisplayMetrics());
+        final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
         pager.setPageMargin(pageMargin);
-        pager.setCurrentItem(1);
+        pager.setCurrentItem(0);
         //changeColor(getResources().getColor(R.color.green));
         //changeColor(R.color.green);
         tabs.setOnTabReselectedListener(new PagerSlidingTabStrip.OnTabReselectedListener() {
@@ -79,6 +110,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        List<ShoppingCart> mList = new ArrayList<>();
+        mList.add(new ShoppingCart("1","Food 001", "Food Desc", 1, 1.25));
+        mList.add(new ShoppingCart("1","Food 002", "Food Desc", 1, 2.25));
+
+        mShoppingCartAdapter = new ShoppingCartAdapter(this, mList);
+        shoppingcart_listView.setAdapter(mShoppingCartAdapter);
+        shoppingcart_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                ShoppingCartAdapter associatedAdapter = (ShoppingCartAdapter)(parent.getAdapter());
+                List<ShoppingCart> associatedList = associatedAdapter.getList();
+                ShoppingCart associatedItem = associatedList.get(position);
+                if(removeItemToList(associatedList,associatedItem)){
+                    view.invalidate();
+                    associatedAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+    }
+
+    private boolean removeItemToList(List<ShoppingCart> l, ShoppingCart it){
+        boolean result = l.remove(it);
+        return result;
+    }
+
+    private boolean addItemToList(List<ShoppingCart> l, ShoppingCart it){
+        boolean result = l.add(it);
+        return result;
     }
 
     @Override
@@ -134,28 +195,4 @@ public class MainActivity extends AppCompatActivity {
         changeColor(currentColor);
     }
 
-    public class MyPagerAdapter extends FragmentPagerAdapter {
-
-        private final String[] TITLES = {"Categories", "Home", "Top Paid", "Top Free", "Top Grossing", "Top New Paid",
-                "Top New Free", "Trending"};
-
-        public MyPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return TITLES[position];
-        }
-
-        @Override
-        public int getCount() {
-            return TITLES.length;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return SuperAwesomeCardFragment.newInstance(position);
-        }
-    }
 }

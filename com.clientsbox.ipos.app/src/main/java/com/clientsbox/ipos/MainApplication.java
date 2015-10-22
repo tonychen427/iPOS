@@ -3,9 +3,9 @@ package com.clientsbox.ipos;
 import android.app.Application;
 import android.content.Context;
 
-import com.clientsbox.ipos.core.ApplicationComponent;
-import com.clientsbox.ipos.core.ApplicationModule;
-import com.clientsbox.ipos.core.DaggerApplicationComponent;
+import com.clientsbox.ipos._core.ApplicationComponent;
+import com.clientsbox.ipos._core.ApplicationModule;
+import com.clientsbox.ipos._core.DaggerApplicationComponent;
 import com.clientsbox.ipos.logic.IInventoryLogic;
 
 

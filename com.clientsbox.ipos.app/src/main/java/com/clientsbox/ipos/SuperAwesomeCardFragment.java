@@ -16,7 +16,16 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.clientsbox.ipos.adapter.CategoryAdapter;
 import com.clientsbox.ipos.adapter.CustomGrid;
+import com.clientsbox.ipos.adapter.ShoppingCartAdapter;
+import com.clientsbox.ipos.transfer.object.InventoryCategory;
+import com.clientsbox.ipos.transfer.object.InventoryItem;
+import com.clientsbox.ipos.transfer.object.InventoryMenu;
+import com.clientsbox.ipos.transfer.object.ShoppingCart;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -31,24 +40,7 @@ public class SuperAwesomeCardFragment extends Fragment {
     private int position;
 
     GridView grid;
-    String[] web = {
-            "Google",
-            "Github",
-            "Instagram",
-            "Facebook",
-            "Flickr",
-            "Pinterest",
-            "Quora",
-            "Twitter",
-            "Vimeo",
-            "WordPress",
-            "Youtube",
-            "Stumbleupon",
-            "SoundCloud",
-            "Reddit",
-            "Blogger"
 
-    } ;
     int[] imageId = {
             R.drawable.hamburger,
             R.drawable.hamburger,
@@ -66,12 +58,14 @@ public class SuperAwesomeCardFragment extends Fragment {
             R.drawable.hamburger,
             R.drawable.hamburger
     };
+    static List<InventoryCategory> _inventoryCategory;
 
-    public static SuperAwesomeCardFragment newInstance(int position) {
+    public static SuperAwesomeCardFragment newInstance(int position,  List<InventoryCategory> mInventoryCategory) {
         SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         f.setArguments(b);
+        _inventoryCategory = mInventoryCategory;
         return f;
     }
 
@@ -86,21 +80,36 @@ public class SuperAwesomeCardFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_card,container,false);
         ButterKnife.inject(this, rootView);
 
-        CustomGrid adapter = new CustomGrid(container.getContext(), web, imageId);
+
+        CategoryAdapter mCategoryAdapter = new CategoryAdapter(container.getContext(),_inventoryCategory.get(position).getItemList(),imageId);
+        //CustomGrid adapter = new CustomGrid(container.getContext(), web, imageId);
         GridView grid = (GridView) rootView.findViewById(R.id.grid);
-        grid.setAdapter(adapter);
+        grid.setAdapter(mCategoryAdapter);
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Toast.makeText(container.getContext(), "You Clicked at " + web[+position], Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view,int positionItem, long id) {
+                InventoryItem mItem = _inventoryCategory.get(position).getItemList().get(positionItem);
+                Toast.makeText(container.getContext(), "You Clicked at " + mItem.getTitle(), Toast.LENGTH_SHORT).show();
 
+                int itemId = mItem.getId();
+                String itemName = mItem.getTitle();
+                Double itemPrice = mItem.getPrice();
+
+                ShoppingCartAdapter mShoppingCartAdapter =  ((MainActivity)getActivity()).mShoppingCartAdapter;
+                List<ShoppingCart> myShoppingCartList =  mShoppingCartAdapter.getList();
+                addItemToList(myShoppingCartList,new ShoppingCart(String.valueOf(itemId),itemName, itemName, 1, itemPrice));
+                mShoppingCartAdapter.notifyDataSetChanged();
             }
         });
 
-        ViewCompat.setElevation(rootView,50);
+        ViewCompat.setElevation(rootView, 0);
         textView.setText("CARD "+position);
         return rootView;
+    }
+
+    private boolean addItemToList(List<ShoppingCart> l, ShoppingCart it){
+        boolean result = l.add(it);
+        return result;
     }
 }

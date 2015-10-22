@@ -27,6 +27,7 @@ public class InventoryRepository implements IInventoryRepository {
     @Override
     public InventoryMenu getAllMenuByStoreId(int id) {
 
+
         return new InventoryMenu(id,"test","sub test",null);
     }
 
