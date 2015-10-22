@@ -24,6 +24,7 @@ import com.clientsbox.ipos.transfer.object.InventoryItem;
 import com.clientsbox.ipos.transfer.object.InventoryMenu;
 import com.clientsbox.ipos.transfer.object.ShoppingCart;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,12 +86,20 @@ public class SuperAwesomeCardFragment extends Fragment {
         //CustomGrid adapter = new CustomGrid(container.getContext(), web, imageId);
         GridView grid = (GridView) rootView.findViewById(R.id.grid);
         grid.setAdapter(mCategoryAdapter);
+
         grid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,int positionItem, long id) {
                 InventoryItem mItem = _inventoryCategory.get(position).getItemList().get(positionItem);
                 Toast.makeText(container.getContext(), "You Clicked at " + mItem.getTitle(), Toast.LENGTH_SHORT).show();
+
+                TextView tempTotalPriceLabel = ((MainActivity)getActivity()).totalPriceLabel;
+                Double mTotalPrice = Double.parseDouble(tempTotalPriceLabel.getText().toString());
+                mTotalPrice = mTotalPrice + mItem.getPrice();
+                DecimalFormat f = new DecimalFormat("##.00");
+                tempTotalPriceLabel.setText(f.format(mTotalPrice).toString());
+
 
                 int itemId = mItem.getId();
                 String itemName = mItem.getTitle();

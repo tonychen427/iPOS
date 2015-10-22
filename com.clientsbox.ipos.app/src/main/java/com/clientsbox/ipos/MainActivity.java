@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.clientsbox.ipos.adapter.ShoppingCartAdapter;
@@ -30,6 +31,7 @@ import com.clientsbox.ipos.transfer.object.ShoppingCart;
 import com.clientsbox.ipos.widgets.pageslidingtabstrip.PagerSlidingTabStrip;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
     ViewPager pager;
     @InjectView(R.id.Shoppingcart_listView)
     ListView shoppingcart_listView;
+    @InjectView(R.id.totalPrice)
+    TextView totalPriceLabel;
 
     ShoppingCartAdapter mShoppingCartAdapter;
 
@@ -104,6 +108,13 @@ public class MainActivity extends AppCompatActivity {
                 if(removeItemToList(associatedList,associatedItem)){
                     view.invalidate();
                     associatedAdapter.notifyDataSetChanged();
+
+
+                    Double mTotalPrice = Double.parseDouble(totalPriceLabel.getText().toString());
+                    mTotalPrice = mTotalPrice - associatedItem.getPrice();
+                    DecimalFormat f = new DecimalFormat("##.00");
+                    totalPriceLabel.setText(f.format(mTotalPrice).toString());
+
                 }
             }
         });
